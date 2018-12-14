@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Войти{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row block">
+            <div class="col-md-6 col-sm-10 offset-md-3 offset-sm-1 align-self-center">
+                <form class="form-signin" method="post">
+                    <h2 class="text-center mb-5">Войти в BlogZ</h2>
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script type="text/javascript">
+        
+        $('label').css('display', 'none');
+        $('#id_username').attr('placeholder', 'Имя пользователя');
+        $('input[name=password]').attr('placeholder', 'Пароль');
+        $('#id_username, input[name=password]').addClass('form-control');
+
+    </script>
+
+{% endblock %}

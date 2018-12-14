@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 col-xs-10 offset-md-2 offset-xs-1 white px-0">
+                <h2 class="text-center py-4 username">{{ user }} | {% block page %} Главная {% endblock %} | <a 
+                    href="{% url 'blogs:logout' %}"> Выйти</a></h2>
+            </div>
+        </div>
+
+        {% block navigation %}
+
+        <div class="row">
+            <div class="col-md-8 col-xs-10 offset-md-2 offset-xs-1 white pb-3">
+                <div class="row">
+                    <div class="col text-center px-1">
+                        <a role="button" class="btn btn-primary" 
+                           href="{% url 'blogs:create_post' %}">Новый пост</a>
+                    </div>
+                    <div class="col text-center px-1">
+                        <a role="button" class="btn btn-primary" 
+                           href="{% url 'blogs:subscriptions' %}">Подписки</a>
+                    </div>
+                    <div class="col text-center px-1">
+                        <a role="button" class="btn btn-primary" 
+                           href="{% url 'blogs:new_posts' %}">Лента</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endblock %}
+
+        {% block search %}
+        {% endblock %}
+
+        <div class="pb-3">
+        {% block pageContent %}
+        {% for post in object_list %}
+            <div class="row mt-3">
+                <div class="col-md-8 col-xs-10 offset-md-2 offset-xs-1 white px-0">
+                    <div class="post" id="{{ post.id }}">
+                        {% block newPostsHeader %}
+                        {% endblock %}
+                        <a class="post-link" href="{% url 'blogs:post' post.id %}">
+                            <span class="date pl-2">{{ post.date }}</span>
+                            <h5 class="post-hover p-2">{{ post.title }}</h5>
+                            <div class="line"></div>
+                            <p class="post-hover p-2">{{ post.text | linebreaksbr | truncatewords:100 }}</p>
+                        </a>
+                        {% block newPostsFooter %}
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+        {% block empty %}
+            <div class="row mt-5">
+                <div class="col-md-8 col-xs-10 offset-md-2 offset-xs-1 white px-0">
+                    <h5 class="text-center p-5">У Вас пока нет постов</h5>
+                </div>
+            </div>
+        {% endblock %}
+        {% endfor %}
+        {% endblock %}
+        </div>
+        {% include 'pagination.html' %}
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+{% block title %}Лента{% endblock %}
+
+    
+{% block page %} Лента {% endblock %}
+
+{% block navigation %}
+
+<div class="row">
+    <div class="col-md-8 col-xs-10 offset-md-2 offset-xs-1 white pb-3">
+        <div class="row">
+            <div class="col text-center px-1">
+                <a role="button" class="btn btn-primary" 
+                   href="{% url 'blogs:index' %}">Главная</a>
+            </div>
+            <div class="col text-center px-1">
+                <a role="button" class="btn btn-primary" 
+                   href="{% url 'blogs:subscriptions' %}">Подписки</a>
+            </div>
+            <div class="col text-center px-1">
+                <a role="button" class="btn btn-primary" 
+                   href="{% url 'blogs:create_post' %}">Новый пост</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block empty %}
+    <div class="row mt-5">
+        <div class="col-md-8 col-xs-10 offset-md-2 offset-xs-1 white px-0">
+            <h5 class="text-center p-5">У Вас пока нет постов  в ленте</h5>
+        </div>
+    </div>
+{% endblock %}
+
+{% block newPostsHeader %}
+
+    <div class="py-1">
+        <h6 class="p-2">{{ post.user }}</h6>
+    </div>
+    <div class="line"></div>
+
+{% endblock %}
+
+{% block newPostsFooter %}
+
+    <div class="line"></div>
+    {% if post.id in status %}
+    <div class="text-center py-2">
+        <span class="badge badge-info p-2">Прочитан</span>
+    </div>
+    {% else %}
+    <div class="text-center py-2 unread">
+        <a role="button" class="btn btn-danger btn-sm" 
+           href="{% url 'blogs:post_read' post.id %}">Отметить как прочитанный</a>
+    </div>
+    {% endif %}
+
+{% endblock %}
+

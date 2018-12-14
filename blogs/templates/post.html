@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+{% block title %}Пост{% endblock %}
+
+{% block page %} BlogZ {% endblock %}
+
+{% block pageContent %}
+<div class="pb-3">
+    <div class="row mt-3">
+        <div class="col-md-8 col-xs-10 offset-md-2 offset-xs-1 white px-0">
+            <div class="post">               
+                <h6 class="p-2">
+                {% if posts.user == request.user %}
+                    Вы
+                {% else %}
+                    {{ posts.user }}
+                {% endif %}
+                </h6>
+                <div class="line"></div>
+                <span class="date pl-2">{{ posts.date }}</span>
+                <h5 class="post-hover p-2">{{ posts.title }}</h5>
+                <div class="line"></div>
+                <p class="post-hover p-2">{{ posts.text | linebreaksbr }}</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
